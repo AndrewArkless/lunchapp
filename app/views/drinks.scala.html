@@ -1,0 +1,9 @@
+@(additionalDrinks:List[String])
+@main("Drinks"){
+<h1>Drinks</h1>
+<p>Coke</p>
+<p>Lemonade</p>
+@for(d <- additionalDrinks) {
+<p>@d</p>
+}
+}
