@@ -1,0 +1,10 @@
+@(makeOrderForm : Form[Order])(implicit request: MessagesRequestHeader)
+@main("Order Form"){
+@helper.form(action = controllers.routes.MakeOrderController.submitOrder) {
+@helper.inputText(makeOrderForm("name"))
+@helper.inputText(makeOrderForm("address"))
+@helper.inputText(makeOrderForm("order"))
+@helper.CSRF.formField
+<button class="button" id="submit" type="submit" name="action">Submit</button>
+    }
+}

@@ -1,6 +1,7 @@
 package controllers
 
-import com.google.inject.Inject
+import javax.inject.Inject
+
 import models.{DifferentSandwich, Sandwich}
 import play.api.mvc.{Action, Controller}
 import services.DifferentSandwichService

@@ -16,7 +16,7 @@ class realDifferentSandwichService extends DifferentSandwichService {
 
   override def sandwiches: Future[List[DifferentSandwich]] = {
     implicit val hc = HeaderCarrier()
-    val response=http.GET[HttpResponse]("http://localhost:3000/sandwiches")(rds = HttpReads.readRaw, hc)
+    val response: Future[HttpResponse] =http.GET[HttpResponse]("http://localhost:3000/sandwiches")(rds = HttpReads.readRaw, hc)
     response.flatMap{ httpResponse=>
       httpResponse.json.validate[List[DifferentSandwich]].fold(
         invalid => Future.failed(new JsonValidationException("invalid")),
