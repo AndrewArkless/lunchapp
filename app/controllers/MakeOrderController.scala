@@ -5,7 +5,7 @@ import javax.inject.Inject
 import play.api.mvc._
 import services.OrderService
 import forms.OrderForms._
-import models.Order
+import models.{Order, myOrder}
 import play.api.data.Form
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.play.http.HttpResponse
@@ -28,8 +28,8 @@ import scala.concurrent.{ExecutionContext, Future}
       Future.successful(BadRequest(views.html.makeOrders(formWithErrors)))
       },
       userData => {
-        val newOrder: Order =Order(userData.name, userData.address, "Stuff")
-        val response: Future[HttpResponse] =os.submitOrder("newOrder")
+        val newOrder: myOrder =myOrder(userData.name, userData.address, "Stuff")
+        val response: Future[HttpResponse] =os.submitOrder(newOrder)
         response.flatMap { x =>
           x.status match {
             case OK => {

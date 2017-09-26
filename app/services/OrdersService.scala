@@ -3,7 +3,7 @@ package services
 import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
-import models.Order
+import models._
 import play.api.libs.json._
 import play.api.libs.ws.WSClientConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpResponse}
@@ -20,16 +20,16 @@ class RealOrdersService extends OrderService {
   }
   def getOrder={
     implicit val hc = HeaderCarrier()
-    http.GET[Order]("http://localhost:9001/orders")
+    http.GET[myOrder]("http://localhost:9001/orders")
   }
-  def submitOrder(data:String): Future[HttpResponse] ={
+  def submitOrder[Order](data:Order): Future[HttpResponse] ={
     implicit val hc = HeaderCarrier()
-    httpPost.doPostString("http://localhost:9001/make-orders",data,Seq())
+    httpPost.doPost[Order]("http://localhost:9001/make-orders",data,Seq())
   }
 }
 
 @ImplementedBy(classOf[RealOrdersService])
 trait OrderService {
-  def getOrder:Future[Order]
-  def submitOrder(data:String):Future[HttpResponse]
+  def getOrder:Future[myOrder]
+  def submitOrder[myOrder](data:myOrder):Future[HttpResponse]
 }

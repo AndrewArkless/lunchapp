@@ -1,6 +1,6 @@
 package forms
 
-import models.Order
+import models.{myOrder}
 import play.api.data._
 import play.api.data.Forms._
 
@@ -13,6 +13,6 @@ object OrderForms {
      "name" -> text,
      "address" -> text,
      "order" -> text
-   )(Order.apply)(Order.unapply)
+   )(myOrder.apply)(myOrder.unapply)
  )
 }
